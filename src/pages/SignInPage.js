@@ -1,5 +1,5 @@
 import { useAuth } from "contexts/auth-context";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import AuthenticationPage from "./AuthenticationPage";
 import { useForm } from "react-hook-form";
@@ -10,9 +10,9 @@ import { Button } from "components/button";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import { IconEyeClose, IconEyeOpen } from "icon";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "firebase-app/firebase-config";
+import InputPasswordToggle from "components/input/InputPasswordToggle";
 
 const schema = yup.object({
   email: yup
@@ -57,7 +57,6 @@ const SignInPage = () => {
     await signInWithEmailAndPassword(auth, values.email, values.password);
     navigate("/");
   };
-  const [togglePassword, setTogglePassword] = useState(false);
 
   //
   return (
@@ -78,22 +77,8 @@ const SignInPage = () => {
         </Field>
         <Field>
           <Label htmlFor="password">Password</Label>
-          <Input
-            type={togglePassword ? "text" : "password"}
-            name="password"
-            placeholder="Enter your password"
-            control={control}
-          >
-            {!togglePassword ? (
-              <IconEyeClose
-                onClick={() => setTogglePassword(true)}
-              ></IconEyeClose>
-            ) : (
-              <IconEyeOpen
-                onClick={() => setTogglePassword(false)}
-              ></IconEyeOpen>
-            )}
-          </Input>
+          <InputPasswordToggle control={control}></InputPasswordToggle>
+
         </Field>
         <div className="have-account">
           You have not had an account?{" "}
@@ -101,7 +86,7 @@ const SignInPage = () => {
         </div>
         <Button
           type="submit"
-          style={{ maxWidth: 350, margin: "0 auto" }}
+          className="w-full max-w-[300px] mx-auto"
           isLoading={isSubmitting}
           disabled={isSubmitting}
         >

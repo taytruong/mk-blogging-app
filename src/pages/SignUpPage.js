@@ -2,8 +2,7 @@ import { Button } from "components/button";
 import Field from "components/field/Field";
 import { Input } from "components/input";
 import { Label } from "components/label";
-import { IconEyeClose, IconEyeOpen } from "icon";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,6 +12,7 @@ import { auth, db } from "firebase-app/firebase-config";
 import { NavLink, useNavigate } from "react-router-dom";
 import { addDoc, collection } from "firebase/firestore";
 import AuthenticationPage from "./AuthenticationPage";
+import InputPasswordToggle from "components/input/InputPasswordToggle";
 
 const schema = yup.object({
   fullname: yup.string().required("Please enter your fullname"),
@@ -32,8 +32,6 @@ const SignUpPage = () => {
     control,
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
-    watch,
-    reset,
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
@@ -41,11 +39,7 @@ const SignUpPage = () => {
   const handleSignUp = async (values) => {
     if (!isValid) return;
     console.log("🚀 ~ handleSignUp ~ values:", values);
-    const user = await createUserWithEmailAndPassword(
-      auth,
-      values.email,
-      values.password
-    );
+    await createUserWithEmailAndPassword(auth, values.email, values.password);
     await updateProfile(auth.currentUser, {
       displayName: values.fullname,
     });
@@ -59,7 +53,6 @@ const SignUpPage = () => {
     navigate("/");
   };
 
-  const [togglePassword, setTogglePassword] = useState(false);
   useEffect(() => {
     const arrErrors = Object.values(errors);
     if (arrErrors.length > 0) {
@@ -102,29 +95,14 @@ const SignUpPage = () => {
         </Field>
         <Field>
           <Label htmlFor="password">Password</Label>
-          <Input
-            type={togglePassword ? "text" : "password"}
-            name="password"
-            placeholder="Enter your password"
-            control={control}
-          >
-            {!togglePassword ? (
-              <IconEyeClose
-                onClick={() => setTogglePassword(true)}
-              ></IconEyeClose>
-            ) : (
-              <IconEyeOpen
-                onClick={() => setTogglePassword(false)}
-              ></IconEyeOpen>
-            )}
-          </Input>
+          <InputPasswordToggle control={control}></InputPasswordToggle>
         </Field>
         <div className="have-account">
           You already have an account? <NavLink to={"/sign-in"}>Login</NavLink>
         </div>
         <Button
           type="submit"
-          style={{ maxWidth: 350, margin: "0 auto" }}
+          style={{ maxWidth: 350, margin: "0 auto", width: "100%" }}
           isLoading={isSubmitting}
           disabled={isSubmitting}
         >
