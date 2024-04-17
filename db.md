@@ -6,26 +6,28 @@
 - image
 - createdAt(ngày tạo)
 - status: 1(approved) 2(pending) 3(reject)
-- content:
-- userId
-- categoryId
+- hot (true of false)
+- content
+- user: {id, username, fullname, avatar, description}
+- category: {id, name, slug}
 
-# Category
+# Category 
 
 - id 
-- title
+- name
 - slug
-- status: 1(approved) 2(pending)
+- status: 1(approved) 2(unapproved)
 - createdAt
 
 # User
 
 - id
 - displayName
+- username
 - email
 - password
-- avatar
+- avatar: url, image_name
 - status: 1(active) 2(pending) 3(ban)
 - role: 1(Admin) 2(Mod) 3(User)
-- permissions: --> hard
+- permissions:"ADD_POST" --> hard
 - createdAt

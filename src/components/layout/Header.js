@@ -3,10 +3,9 @@ import { useAuth } from "contexts/auth-context";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-
 const menuLinks = [
   {
-    url: "/#",
+    url: "/",
     title: "Home",
   },
   {
@@ -18,11 +17,17 @@ const menuLinks = [
     title: "Contact",
   },
 ];
+
 const HeaderStyles = styled.header`
-  padding: 15px 0;
+  padding: 20px 0;
   .header-main {
     display: flex;
     align-items: center;
+  }
+  .header-auth {
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }
   .logo {
     display: block;
@@ -36,9 +41,7 @@ const HeaderStyles = styled.header`
     list-style: none;
     font-weight: 500;
   }
-
   .search {
-    position: relative;
     margin-left: auto;
     padding: 15px 25px;
     border: 1px solid #ccc;
@@ -47,38 +50,40 @@ const HeaderStyles = styled.header`
     max-width: 320px;
     display: flex;
     align-items: center;
+    position: relative;
     margin-right: 20px;
   }
-
   .search-input {
     flex: 1;
-    padding-right: 45px;
+    padding-right: 40px;
     font-weight: 500;
   }
-
   .search-icon {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     right: 25px;
   }
+  @media screen and (max-width: 1023.98px) {
+    .logo {
+      max-width: 30px;
+    }
+    .menu,
+    .search,
+    .header-button,
+    .header-auth {
+      display: none;
+    }
+  }
 `;
-
-function getLastName(name) {
-  if (!name) return "User";
-  const length = name.split(" ").length;
-  return name.split(" ")[length - 1];
-}
-
 const Header = () => {
   const { userInfo } = useAuth();
-  console.log("🚀 ~ Header ~ userInfo:", userInfo);
   return (
     <HeaderStyles>
       <div className="container">
         <div className="header-main">
           <NavLink to="/">
-            <img srcSet="/logo.png 2x" alt="mk-blogging" className="logo" />
+            <img srcSet="/logo.png 2x" alt="monkey-blogging" className="logo" />
           </NavLink>
           <ul className="menu">
             {menuLinks.map((item) => (
@@ -93,7 +98,7 @@ const Header = () => {
             <input
               type="text"
               className="search-input"
-              placeholder="Search posts ... "
+              placeholder="Search posts..."
             />
             <span className="search-icon">
               <svg
@@ -129,19 +134,22 @@ const Header = () => {
           {!userInfo ? (
             <Button
               type="button"
-              style={{ maxWidth: "200px" }}
               height="56px"
               className="header-button"
-              to="/sign-up"
+              to="/sign-in"
             >
-              Sign Up
+              Login
             </Button>
           ) : (
             <div className="header-auth">
-              <span>Welcome back, </span>
-              <strong className="text-primary">
-                {getLastName(userInfo?.displayName)}
-              </strong>
+              <Button
+                type="button"
+                height="56px"
+                className="header-button"
+                to="/dashboard"
+              >
+                Dashboard
+              </Button>
             </div>
           )}
         </div>

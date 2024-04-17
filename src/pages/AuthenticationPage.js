@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const AuthenticationPageStyles = styled.div`
   min-height: 100vh;
-  padding: 40px;
+  padding: 150px;
   .logo {
     margin: 0 auto 20px;
   }
@@ -17,7 +17,7 @@ const AuthenticationPageStyles = styled.div`
   }
   .form {
     max-width: 600px;
-    margin: 0 auto;
+
   }
   .have-account {
     margin-bottom: 20px;
@@ -28,14 +28,17 @@ const AuthenticationPageStyles = styled.div`
     }
   }
 `;
+
 const AuthenticationPage = ({ children }) => {
   return (
     <AuthenticationPageStyles>
-      <div className="container">
-        <NavLink to="/">
-          <img srcSet="/logo.png 2x" alt="mk-blogging" className="logo" />
-        </NavLink>
+      <div className="container grid grid-cols-1 lg:grid-cols-2">
+        <div className="text-center mt-9 mr-12">
+          <NavLink to="/" className="inline-block">
+            <img srcSet="/logo.png " alt="mk-blogging" className="logo" />
+          </NavLink>
         <h1 className="heading">MK Blogging</h1>
+        </div>
         {children}
       </div>
     </AuthenticationPageStyles>

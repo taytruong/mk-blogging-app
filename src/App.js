@@ -3,12 +3,19 @@ import { AuthProvider } from "./contexts/auth-context";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "pages/SignInPage";
 import HomePage from "pages/HomePage";
-import NotFoundPage from "pages/NotFoundPage";
+import NotFoundPage from "pages/PageNotFound";
 import PostDetailsPage from "pages/PostDetailsPage";
 import DashboardLayout from "module/dashboard/DashboardLayout";
 import DashboardPage from "pages/DashboardPage";
 import PostManage from "module/post/PostManage";
 import PostAddNew from "module/post/PostAddNew";
+import CategoryManage from "module/category/CategoryManage";
+import CategoryAddNew from "module/category/CategoryAddNew";
+import UserManage from "module/user/UserManage";
+import UserAddNew from "module/user/UserAddNew";
+import UserProfile from "module/user/UserProfile";
+import CategoryUpdate from "module/category/CategoryUpdate";
+import UserUpdate from "module/user/UserUpdate";
 
 function App() {
   return (
@@ -35,6 +42,34 @@ function App() {
             <Route
               path="/manage/add-post"
               element={<PostAddNew></PostAddNew>}
+            ></Route>
+            <Route
+              path="/manage/category"
+              element={<CategoryManage></CategoryManage>}
+            ></Route>
+            <Route
+              path="/manage/add-category"
+              element={<CategoryAddNew></CategoryAddNew>}
+            ></Route>
+            <Route
+              path="/manage/update-category"
+              element={<CategoryUpdate></CategoryUpdate>}
+            ></Route>
+            <Route
+              path="/manage/user"
+              element={<UserManage></UserManage>}
+            ></Route>
+            <Route
+              path="/manage/add-user"
+              element={<UserAddNew></UserAddNew>}
+            ></Route>
+            <Route
+              path="/manage/update-user"
+              element={<UserUpdate></UserUpdate>}
+            ></Route>
+            <Route
+              path="/profile"
+              element={<UserProfile></UserProfile>}
             ></Route>
           </Route>
         </Routes>
