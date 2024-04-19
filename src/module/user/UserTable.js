@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { userRole, userStatus } from "utils/constants";
 
-const CATEGORY_PER_PAGE = 10; // count display per page 
+const USER_PER_PAGE = 10; // count display per page 
 
 const UserTable = () => {
   const [userList, setUserList] = useState([]);
@@ -23,7 +23,7 @@ const [total, setTotal] = useState(0)
 const handleLoadMoreUser = async () => {
   const nextRef = query(collection(db, "users"),
       startAfter(lastDoc), // result after (lastDoc)
-      limit(CATEGORY_PER_PAGE));
+      limit(USER_PER_PAGE));
   
       onSnapshot(nextRef, (snapshot) => {
         let results = [];
@@ -46,14 +46,14 @@ const handleLoadMoreUser = async () => {
       const newRef = filter
       ? query(
         colRef,
-        where("username", ">=", filter),
-        where("username", "<=", filter + "utf8"),
+        where("fullname", ">=", filter),
+        where("fullname", "<=", filter + "utf8"),
       )
-      : query(colRef,limit(CATEGORY_PER_PAGE));
+      : query(colRef,limit(USER_PER_PAGE));
 
       const documentSnapshots = await getDocs(newRef);
       const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length-1];
-      setLastDoc(lastVisible)
+      // setLastDoc(lastVisible)
 
       onSnapshot(colRef, snapshot => {
         setTotal(snapshot.size) 
@@ -69,6 +69,7 @@ const handleLoadMoreUser = async () => {
         });
         setUserList(results);
       });
+      setLastDoc(lastVisible)
     }
     fetchData()
   }, [filter]);

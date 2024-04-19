@@ -1,12 +1,10 @@
 import styled from "styled-components";
 import slugify from "slugify";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PostTitle from "./PostTitle";
 import PostMeta from "./PostMeta";
 import PostImage from "./PostImage";
 import PostCategory from "./PostCategory";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "firebase-app/firebase-config";
 
 const PostFeatureItemStyles = styled.div`
   width: 100%;
@@ -51,40 +49,17 @@ const PostFeatureItemStyles = styled.div`
     height: 272px;
   }
 `;
+
 const PostFeatureItem = ({ data }) => {
-  const [category, setCategory] = useState("");
-  const [user, setUser] = useState("");
-  // get category render
-  useEffect(() => {
-    async function fetch() {
-      const docRef = doc(db, "categories", data.categoryId);
-      const docSnap = await getDoc(docRef);
-      setCategory(docSnap.data());
-    }
-    fetch();
-  }, [data.categoryId]);
-
-  // get author render
-  useEffect(() => {
-    async function fetchUser() {
-      if (data.userId) {
-        const docRef = doc(db, "users", data.userId);
-        const docSnap = await getDoc(docRef);
-        // console.log("🚀 ~ fetch ~ docSnap:", docSnap.data());
-        if (docSnap.data) {
-          setUser(docSnap.data());
-        }
-      }
-    }
-    fetchUser();
-  }, [data.userId]);
-
-  
-  //date
-  const date = data?.createdAt?.seconds ? new Date(data?.createdAt?.seconds*1000) : new Date()
-  const formatDate = new Date(date).toLocaleDateString("vi-VI")
-  
   if (!data || !data.id) return null;
+  //date
+  const date = data?.createdAt?.seconds
+    ? new Date(data?.createdAt?.seconds * 1000)
+    : new Date();
+  const formatDate = new Date(date).toLocaleDateString("vi-VI");
+
+  const { category, user } = data;
+
   return (
     <PostFeatureItemStyles>
       <PostImage url={data.image} alt="unsplash"></PostImage>
@@ -92,7 +67,7 @@ const PostFeatureItem = ({ data }) => {
       <div className="post-overlay"></div>
       <div className="post-content">
         <div className="post-top">
-          {category?.name && (
+          {data.category?.name && (
             <PostCategory to={category.slug}>{category.name}</PostCategory>
           )}
           <PostMeta

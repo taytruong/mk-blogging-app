@@ -66,7 +66,7 @@ const nextRef = query(collection(db, "categories"),
       // ~web : panigate a query
       const documentSnapshots = await getDocs(newRef);
       const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length-1];
-      setLastDoc(lastVisible)
+      // setLastDoc(lastVisible)
 
       onSnapshot(colRef, snapshot => {
         setTotal(snapshot.size) 
@@ -82,6 +82,7 @@ const nextRef = query(collection(db, "categories"),
         });
         setCategoryList(results);
       });
+      setLastDoc(lastVisible)
     }
     fetchData()
     }, [filter]);

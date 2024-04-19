@@ -26,7 +26,6 @@ import { useAuth } from "contexts/auth-context";
 import { toast } from "react-toastify";
 import DashboardHeading from "module/dashboard/DashboardHeading";
 
-
 const PostAddNew = () => {
   const { userInfo } = useAuth();
   // console.log("🚀 ~ PostAddNew ~ userInfo:", userInfo)
@@ -39,6 +38,7 @@ const PostAddNew = () => {
       category: {},
       hot: false,
       image: "",
+      user: {},
     },
   });
   const watchStatus = watch("status");
@@ -50,50 +50,55 @@ const PostAddNew = () => {
     handleSelectImage,
     handleDeleteImage,
   } = useFirebaseImage(setValue, getValues);
-  
+
   const [categories, setCategories] = useState([]);
   const [selectCategory, setSelectCategory] = useState("");
   const [loading, setLoading] = useState(false);
 
-  useEffect(()=>{
-    async function fetchUserData(){
-      if(!userInfo.uid) return;
-      const colRef = doc(db, 'users' ,userInfo.email)
-      const docData = await getDoc(colRef)
-      setValue("user",{
-        id:docData.id,
-        ...docData.data()
-      })
+  useEffect(() => {
+    async function fetchUserData() {
+      if (!userInfo.email) return;
+      const q = query(
+        collection(db, "users"),
+        where("email", "==", userInfo.email)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        setValue("user", {
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
     }
-    fetchUserData()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[userInfo.uid])
+    fetchUserData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userInfo.email]);
+
   const addPostHandler = async (values) => {
     setLoading(true);
     try {
       const cloneValues = { ...values };
       cloneValues.slug = slugify(values.slug || values.title, { lower: true });
       cloneValues.status = Number(values.status);
-      console.log("🚀 ~ addPostHandler ~ cloneValues:", cloneValues)
       const colRef = collection(db, "posts");
-      // await addDoc(colRef, {
-      //   ...cloneValues,
-      //   image,
-      //   userId: userInfo.uid,
-      //   createdAt: serverTimestamp(),
-      // });
-      // // console.log("🚀 ~ addPostHandler ~ cloneValues:", cloneValues);
-      // toast.success("Create new post successfully!");
-      // reset({
-      //   title: "",
-      //   slug: "",
-      //   status: 2,
-      //   category: {},
-      //   hot: false,
-      //   image: "",
-      // });
-      // handleResetUpload();
-      // setSelectCategory({});
+      console.log("🚀 ~ addPostHandler ~ cloneValues:", cloneValues);
+      await addDoc(colRef, {
+        ...cloneValues,
+        image,
+        createdAt: serverTimestamp(),
+      });
+      toast.success("Create new post successfully!");
+      reset({
+        title: "",
+        slug: "",
+        status: 2,
+        category: {},
+        hot: false,
+        image: "",
+        user: {},
+      });
+      handleResetUpload();
+      setSelectCategory({});
     } catch (error) {
       setLoading(false);
     } finally {
@@ -103,7 +108,7 @@ const PostAddNew = () => {
 
   useEffect(() => {
     async function getData() {
-      // linkweb: get query firestore 
+      // linkweb: get query firestore
       const colRef = collection(db, "categories");
       const q = query(colRef, where("status", "==", 1));
       const querySnapshot = await getDocs(q);
@@ -119,17 +124,17 @@ const PostAddNew = () => {
     getData();
   }, []);
 
-  useEffect(()=>{
-    document.title="MK - Add new post"
-  },[])
+  useEffect(() => {
+    document.title = "MK - Add new post";
+  }, []);
 
   const handleClickOption = async (item) => {
-    const colRef = doc(db, 'categories', item.id)
-    const docData = await getDoc(colRef)
-    setValue("category",{
-      id:docData.id,
-      ...docData.data()
-    })
+    const colRef = doc(db, "categories", item.id);
+    const docData = await getDoc(colRef);
+    setValue("category", {
+      id: docData.id,
+      ...docData.data(),
+    });
     setSelectCategory(item);
     // console.log("🚀 ~ handleClickOption ~ item:", item);
   };
