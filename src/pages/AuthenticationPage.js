@@ -35,7 +35,7 @@ const AuthenticationPage = ({ children }) => {
       <div className="container grid grid-cols-1 lg:grid-cols-2">
         <div className="text-center mt-9 mr-12">
           <NavLink to="/" className="inline-block">
-            <img srcSet="/logo.png " alt="mk-blogging" className="logo" />
+            <img srcSet="/logo.png 1x" alt="mk-blogging" className="logo" />
           </NavLink>
         <h1 className="heading">MK Blogging</h1>
         </div>

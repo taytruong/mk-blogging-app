@@ -2,14 +2,12 @@ import { ActionDelete, ActionEdit, ActionView } from "components/actions";
 import { Button } from "components/button";
 import { Dropdown } from "components/dropdown";
 import { LabelStatus } from "components/label";
-import { Pagination } from "components/pagination";
 import { Table } from "components/table";
 import { db } from "firebase-app/firebase-config";
 import {
   collection,
   deleteDoc,
   doc,
-  getDoc,
   getDocs,
   limit,
   onSnapshot,
@@ -30,7 +28,7 @@ const PostManage = () => {
   const [postList, setPostList] = useState([]);
   const [filter, setFilter] = useState("");
   const [lastDoc, setLastDoc] = useState();
-const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(0);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -48,11 +46,10 @@ const [total, setTotal] = useState(0)
       const documentSnapshots = await getDocs(newRef);
       const lastVisible =
         documentSnapshots.docs[documentSnapshots.docs.length - 1];
-      // setLastDoc(lastVisible)
 
-      onSnapshot(colRef, snapshot => {
-        setTotal(snapshot.size) 
-      })
+      onSnapshot(colRef, (snapshot) => {
+        setTotal(snapshot.size);
+      });
 
       onSnapshot(newRef, (snapshot) => {
         let results = [];
@@ -105,29 +102,31 @@ const [total, setTotal] = useState(0)
   };
 
   const handleSearchPost = debounce((e) => {
-    setFilter(e.target.value)
-  },250);
+    setFilter(e.target.value);
+  }, 250);
 
-  
-const handleLoadMorePost = async () => {
-  const nextRef = query(collection(db, "posts"),
+  const handleLoadMorePost = async () => {
+    const nextRef = query(
+      collection(db, "posts"),
       startAfter(lastDoc), // result after (lastDoc)
-      limit(POST_PER_PAGE));
-  
-      onSnapshot(nextRef, (snapshot) => {
-        let results = [];
-        snapshot.forEach((doc) => {
-          results.push({
-            id: doc.id,
-            ...doc.data(),
-          });
+      limit(POST_PER_PAGE)
+    );
+
+    onSnapshot(nextRef, (snapshot) => {
+      let results = [];
+      snapshot.forEach((doc) => {
+        results.push({
+          id: doc.id,
+          ...doc.data(),
         });
-        setPostList([...postList,...results]); //~ values new, values old
       });
-      const documentSnapshots = await getDocs(nextRef);
-      const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length-1];
-      setLastDoc(lastVisible) 
-    }
+      setPostList([...postList, ...results]); //~ values new, values old
+    });
+    const documentSnapshots = await getDocs(nextRef);
+    const lastVisible =
+      documentSnapshots.docs[documentSnapshots.docs.length - 1];
+    setLastDoc(lastVisible);
+  };
   return (
     <div>
       <DashboardHeading
@@ -163,7 +162,7 @@ const handleLoadMorePost = async () => {
         <tbody>
           {postList.length > 0 &&
             postList.map((post) => {
-              {/* console.log("🚀 ~ PostManage ~ post:", post) */}
+              console.log("🚀 ~ postList.map ~ post:", post);
               const date = post?.createdAt?.seconds
                 ? new Date(post?.createdAt?.seconds * 1000)
                 : new Date();
@@ -200,7 +199,11 @@ const handleLoadMorePost = async () => {
                       <ActionView
                         onClick={() => navigate(`/${post.slug}`)}
                       ></ActionView>
-                      <ActionEdit onClick={()=>navigate(`/manage/update-post?id=${post.id}`)}></ActionEdit>
+                      <ActionEdit
+                        onClick={() =>
+                          navigate(`/manage/update-post?id=${post.id}`)
+                        }
+                      ></ActionEdit>
                       <ActionDelete
                         onClick={() => handleDeletePost(post.id)}
                       ></ActionDelete>
@@ -211,9 +214,13 @@ const handleLoadMorePost = async () => {
             })}
         </tbody>
       </Table>
-      {total > postList.length && (<div className="mt-10 text-center">
-        <Button className="mx-auto w-[200px]" onClick={handleLoadMorePost}>Load more</Button>
-      </div>)}
+      {total > postList.length && (
+        <div className="mt-10 text-center">
+          <Button className="mx-auto w-[200px]" onClick={handleLoadMorePost}>
+            Load more
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
