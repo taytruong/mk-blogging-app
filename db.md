@@ -1,6 +1,6 @@
 # Posts
 
-- id: 
+- id:
 - title
 - slug(đường dẫn)
 - image
@@ -13,9 +13,9 @@
 - categoryId
 - category: {id, name, slug}
 
-# Category 
+# Category
 
-- id 
+- id
 - name
 - slug
 - status: 1(approved) 2(unapproved)
@@ -33,3 +33,5 @@
 - role: 1(Admin) 2(Mod) 3(User)
 - permissions:"ADD_POST" --> hard
 - createdAt
+
+# firebasestore - mk-blogging
