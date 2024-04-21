@@ -29,6 +29,7 @@ const CategoryUpdate = () => {
   const [params] = useSearchParams();
   const categoryId = params.get("id");
   const navigate = useNavigate();
+  
   useEffect(() => {
     async function fetchData() {
       const colRef = doc(db, "categories", categoryId);

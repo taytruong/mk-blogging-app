@@ -40,7 +40,7 @@ const HomeBanner = () => {
       <div className="container">
         <div className="banner">
           <div className="banner-content">
-            <h1 className="banner-heading">TT Blogging App</h1>
+            <h1 className="banner-heading">MK Blogging App</h1>
             <p className="banner-desc">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio odit
               laudantium nemo architecto eius, ab unde, animi saepe inventore

@@ -124,9 +124,9 @@ const PostAddNew = () => {
     getData();
   }, []);
 
-  useEffect(() => {
-    document.title = "MK - Add new post";
-  }, []);
+  // useEffect(() => {
+  //   document.title = "MK - Add new post";
+  // }, []);
 
   const handleClickOption = async (item) => {
     const colRef = doc(db, "categories", item.id);

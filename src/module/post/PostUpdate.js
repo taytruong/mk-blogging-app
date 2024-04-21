@@ -22,19 +22,29 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import { postStatus } from "utils/constants";
-import ReactQuill, { Quill } from 'react-quill';
+import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
-import ImageUploader from 'quill-image-uploader';
-Quill.register('modules/imageUploader', ImageUploader);
+import ImageUploader from "quill-image-uploader";
+import axios from "axios";
+import { imgbbAPI } from "../../config/apiConfig";
+import slugify from "slugify";
+Quill.register("modules/imageUploader", ImageUploader);
 
 const PostUpdate = () => {
   const [params] = useSearchParams();
   const postId = params.get("id");
-  const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
 
-  const { control, watch, setValue, handleSubmit, getValues, reset } = useForm({
+  const {
+    control,
+    watch,
+    setValue,
+    handleSubmit,
+    getValues,
+    reset,
+    formState: { isValid, isSubmitting },
+  } = useForm({
     mode: "onChange",
     defaultValues: {
       title: "",
@@ -110,29 +120,49 @@ const PostUpdate = () => {
   };
 
   const updatePostHandler = async (values) => {
+    if(!isValid) return
     const docRef = doc(db, "posts", postId);
+    values.status = Number(values.status)
+    values.slug = slugify(values.slug || values.title, { lower: true });
     await updateDoc(docRef, {
+      ...values,
+      image,
       content,
     });
     toast.success("Update post successfully!");
   };
-  const modules = useMemo(() => ({
-    toolbar: [
-      ["bold", "italic", "underline", "strike"],
-      ["blockquote"],
-      [{ header: 1 }, { header: 2 }], // custom button values
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ["link", "image"],
-    ],
-    ImageUploader:{
-      upload: (file) => {
-        return new Promise((resolve, reject) => {
-            resolve('https://api.imgbb.com/1/upload?key=abbe9a8d32cdce1bf72eca36b825e0b7');
-        });
-      }
-    }
-  }),[]);
+
+  const modules = useMemo(
+    () => ({
+      toolbar: [
+        ["bold", "italic", "underline", "strike"],
+        ["blockquote"],
+        [{ header: 1 }, { header: 2 }], // custom button values
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ["link", "image"],
+      ],
+      imageUploader: {
+        // web ~ imgbbAPI
+        upload: async (file) => {
+          // display img
+          const bodyFormData = new FormData();
+          bodyFormData.append("image", file);
+          const response = await axios({
+            method: "post",
+            url: imgbbAPI,
+            data: bodyFormData,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+          console.log("🚀 ~ upload: ~ response:", response);
+          return response.data.data.url;
+        },
+      },
+    }),
+    []
+  );
   if (!postId) return null;
 
   return (
@@ -249,8 +279,8 @@ const PostUpdate = () => {
         <Button
           type="submit"
           className="mx-auto w-[250px]"
-          isLoading={loading}
-          disabled={loading}
+          isLoading={isSubmitting}
+          disabled={isSubmitting}
         >
           Update post
         </Button>

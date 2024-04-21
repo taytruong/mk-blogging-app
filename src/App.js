@@ -1,83 +1,97 @@
+import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./contexts/auth-context";
-import SignUpPage from "./pages/SignUpPage";
-import SignInPage from "pages/SignInPage";
-import HomePage from "pages/HomePage";
-import NotFoundPage from "pages/PageNotFound";
-import PostDetailsPage from "pages/PostDetailsPage";
-import DashboardLayout from "module/dashboard/DashboardLayout";
-import DashboardPage from "pages/DashboardPage";
-import PostManage from "module/post/PostManage";
-import PostAddNew from "module/post/PostAddNew";
-import CategoryManage from "module/category/CategoryManage";
-import CategoryAddNew from "module/category/CategoryAddNew";
-import UserManage from "module/user/UserManage";
-import UserAddNew from "module/user/UserAddNew";
-import UserProfile from "module/user/UserProfile";
-import CategoryUpdate from "module/category/CategoryUpdate";
-import UserUpdate from "module/user/UserUpdate";
-import PostUpdate from "module/post/PostUpdate";
+
+const HomePage = React.lazy(() => import("pages/HomePage"));
+const CategoryPage = React.lazy(() => import("pages/CategoryPage"));
+const DashboardPage = React.lazy(() => import("pages/DashboardPage"));
+const AuthorPage = React.lazy(() => import("pages/AuthorPage"));
+const SignInPage = React.lazy(() => import("pages/SignInPage"));
+const SignUpPage = React.lazy(() => import("pages/SignUpPage"));
+const PostDetailsPage = React.lazy(() => import("pages/PostDetailsPage"));
+const PageNotFound = React.lazy(() => import("pages/PageNotFound"));
+const UserUpdate = React.lazy(() => import("module/user/UserUpdate"));
+const UserProfile = React.lazy(() => import("module/user/UserProfile"));
+const UserManage = React.lazy(() => import("module/user/UserManage"));
+const UserAddNew = React.lazy(() => import("module/user/UserAddNew"));
+const PostAddNew = React.lazy(() => import("module/post/PostAddNew"));
+const PostManage = React.lazy(() => import("module/post/PostManage"));
+const PostUpdate = React.lazy(() => import("module/post/PostUpdate"));
+const CategoryUpdate = React.lazy(() => import("module/category/CategoryUpdate"));
+const CategoryManage = React.lazy(() => import("module/category/CategoryManage"));
+const CategoryAddNew = React.lazy(() => import("module/category/CategoryAddNew"));
+const DashboardLayout = React.lazy(() => import("module/dashboard/DashboardLayout"));
 
 function App() {
   return (
     <div>
       <AuthProvider>
-        <Routes>
-          <Route path="/" element={<HomePage></HomePage>}></Route>
-          <Route path="/sign-up" element={<SignUpPage></SignUpPage>}></Route>
-          <Route path="/sign-in" element={<SignInPage></SignInPage>}></Route>
-          <Route path="*" element={<NotFoundPage></NotFoundPage>}></Route>
-          <Route
-            path="/:slug"
-            element={<PostDetailsPage></PostDetailsPage>}
-          ></Route>
-          <Route element={<DashboardLayout></DashboardLayout>}>
+        <Suspense>
+          <Routes>
+            <Route path="/" element={<HomePage></HomePage>}></Route>
+            <Route path="/sign-up" element={<SignUpPage></SignUpPage>}></Route>
+            <Route path="/sign-in" element={<SignInPage></SignInPage>}></Route>
+            <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
             <Route
-              path="/dashboard"
-              element={<DashboardPage></DashboardPage>}
+              path="/category/:slug"
+              element={<CategoryPage></CategoryPage>}
             ></Route>
             <Route
-              path="/manage/post"
-              element={<PostManage></PostManage>}
+              path="/author/:slug"
+              element={<AuthorPage></AuthorPage>}
             ></Route>
             <Route
-              path="/manage/add-post"
-              element={<PostAddNew></PostAddNew>}
+              path="/:slug"
+              element={<PostDetailsPage></PostDetailsPage>}
             ></Route>
-            <Route
-              path="/manage/update-post"
-              element={<PostUpdate></PostUpdate>}
-            ></Route>
-            <Route
-              path="/manage/category"
-              element={<CategoryManage></CategoryManage>}
-            ></Route>
-            <Route
-              path="/manage/add-category"
-              element={<CategoryAddNew></CategoryAddNew>}
-            ></Route>
-            <Route
-              path="/manage/update-category"
-              element={<CategoryUpdate></CategoryUpdate>}
-            ></Route>
-            <Route
-              path="/manage/user"
-              element={<UserManage></UserManage>}
-            ></Route>
-            <Route
-              path="/manage/add-user"
-              element={<UserAddNew></UserAddNew>}
-            ></Route>
-            <Route
-              path="/manage/update-user"
-              element={<UserUpdate></UserUpdate>}
-            ></Route>
-            <Route
-              path="/profile"
-              element={<UserProfile></UserProfile>}
-            ></Route>
-          </Route>
-        </Routes>
+            <Route element={<DashboardLayout></DashboardLayout>}>
+              <Route
+                path="/dashboard"
+                element={<DashboardPage></DashboardPage>}
+              ></Route>
+              <Route
+                path="/manage/post"
+                element={<PostManage></PostManage>}
+              ></Route>
+              <Route
+                path="/manage/add-post"
+                element={<PostAddNew></PostAddNew>}
+              ></Route>
+              <Route
+                path="/manage/update-post"
+                element={<PostUpdate></PostUpdate>}
+              ></Route>
+              <Route
+                path="/manage/category"
+                element={<CategoryManage></CategoryManage>}
+              ></Route>
+              <Route
+                path="/manage/add-category"
+                element={<CategoryAddNew></CategoryAddNew>}
+              ></Route>
+              <Route
+                path="/manage/update-category"
+                element={<CategoryUpdate></CategoryUpdate>}
+              ></Route>
+              <Route
+                path="/manage/user"
+                element={<UserManage></UserManage>}
+              ></Route>
+              <Route
+                path="/manage/add-user"
+                element={<UserAddNew></UserAddNew>}
+              ></Route>
+              <Route
+                path="/manage/update-user"
+                element={<UserUpdate></UserUpdate>}
+              ></Route>
+              <Route
+                path="/profile"
+                element={<UserProfile></UserProfile>}
+              ></Route>
+            </Route>
+          </Routes>
+        </Suspense>
       </AuthProvider>
     </div>
   );

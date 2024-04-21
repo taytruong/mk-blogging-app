@@ -1,8 +1,8 @@
 import { ActionDelete, ActionEdit, ActionView } from "components/actions";
 import { Button } from "components/button";
-import { Dropdown } from "components/dropdown";
 import { LabelStatus } from "components/label";
 import { Table } from "components/table";
+import { useAuth } from "contexts/auth-context";
 import { db } from "firebase-app/firebase-config";
 import {
   collection,
@@ -20,9 +20,9 @@ import DashboardHeading from "module/dashboard/DashboardHeading";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { postStatus } from "utils/constants";
+import { postStatus, userRole } from "utils/constants";
 
-const POST_PER_PAGE = 3;
+const POST_PER_PAGE = 10;
 
 const PostManage = () => {
   const [postList, setPostList] = useState([]);
@@ -127,6 +127,11 @@ const PostManage = () => {
       documentSnapshots.docs[documentSnapshots.docs.length - 1];
     setLastDoc(lastVisible);
   };
+
+  // Role
+  const {userInfo} = useAuth()
+  if(userInfo.role !== userRole.ADMIN) return null 
+
   return (
     <div>
       <DashboardHeading
@@ -134,11 +139,6 @@ const PostManage = () => {
         desc="Manage all posts"
       ></DashboardHeading>
       <div className="mb-10 flex justify-end gap-5">
-        <div className="w-full max-w-[200px]">
-          <Dropdown>
-            <Dropdown.Select placeholder="Category"></Dropdown.Select>
-          </Dropdown>
-        </div>
         <div className="w-full max-w-[300px]">
           <input
             type="text"
@@ -162,7 +162,7 @@ const PostManage = () => {
         <tbody>
           {postList.length > 0 &&
             postList.map((post) => {
-              console.log("🚀 ~ postList.map ~ post:", post);
+              {/* console.log("🚀 ~ postList.map ~ post:", post); */}
               const date = post?.createdAt?.seconds
                 ? new Date(post?.createdAt?.seconds * 1000)
                 : new Date();
@@ -215,10 +215,11 @@ const PostManage = () => {
         </tbody>
       </Table>
       {total > postList.length && (
-        <div className="mt-10 text-center">
+        <div className="mt-10">
           <Button className="mx-auto w-[200px]" onClick={handleLoadMorePost}>
             Load more
           </Button>
+        {total}
         </div>
       )}
     </div>
