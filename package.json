@@ -5,7 +5,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
     "@testing-library/jest-dom": "^5.16.3",
-    "@testing-library/react": "^16.0.1",
+    "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.8",
     "firebase": "^9.6.10",
@@ -32,10 +32,8 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "install": "npm install --legacy-peer-deps",
-    "build": "npm run install && npm run buildscript",
     "start": "react-scripts start",
-    "buildscript": "react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
