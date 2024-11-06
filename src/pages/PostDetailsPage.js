@@ -157,7 +157,7 @@ const PostDetailsPage = () => {
             <div className="entry-content">{parse(postInfo.content || "")}</div>
             <AuthorBox userId={user.id}></AuthorBox>
           </div>
-          <PostRelated categoryId={postInfo?.category?.id}></PostRelated>
+          <PostRelated categoryId={postInfo?.category?.name}></PostRelated>
         </div>
       </Layout>
     </PostDetailsPageStyles>

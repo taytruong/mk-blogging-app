@@ -4,6 +4,7 @@ import { collection, limit, onSnapshot, query, where } from "firebase/firestore"
 import PostFeatureItem from "module/post/PostFeatureItem";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+
 const HomeFeatureStyles = styled.div``;
 
 const HomeFeature = () => {
