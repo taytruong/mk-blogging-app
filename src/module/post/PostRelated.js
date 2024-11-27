@@ -7,7 +7,7 @@ import PostItem from './PostItem';
 const PostRelated = ({categoryId = ""}) => {
     const [post, setPost] = useState([])
     useEffect(()=>{
-        const docRef = query(collection(db,"posts"), where("category.id","==",categoryId))
+        const docRef = query(collection(db,"posts"), where("category.name","==",categoryId))
         onSnapshot(docRef, snapshot =>{
             const results = [];
             snapshot.forEach(doc => {
