@@ -17,10 +17,18 @@ const UserAddNew = React.lazy(() => import("module/user/UserAddNew"));
 const PostAddNew = React.lazy(() => import("module/post/PostAddNew"));
 const PostManage = React.lazy(() => import("module/post/PostManage"));
 const PostUpdate = React.lazy(() => import("module/post/PostUpdate"));
-const CategoryUpdate = React.lazy(() => import("module/category/CategoryUpdate"));
-const CategoryManage = React.lazy(() => import("module/category/CategoryManage"));
-const CategoryAddNew = React.lazy(() => import("module/category/CategoryAddNew"));
-const DashboardLayout = React.lazy(() => import("module/dashboard/DashboardLayout"));
+const CategoryUpdate = React.lazy(() =>
+  import("module/category/CategoryUpdate")
+);
+const CategoryManage = React.lazy(() =>
+  import("module/category/CategoryManage")
+);
+const CategoryAddNew = React.lazy(() =>
+  import("module/category/CategoryAddNew")
+);
+const DashboardLayout = React.lazy(() =>
+  import("module/dashboard/DashboardLayout")
+);
 
 function App() {
   return (

@@ -46,6 +46,8 @@ const SignInPage = () => {
   }, [errors]);
 
   const { userInfo } = useAuth();
+  console.log("User Info in SignInPage:", userInfo);
+
   const navigate = useNavigate();
   useEffect(() => {
     document.title = "Login Page";
@@ -78,7 +80,6 @@ const SignInPage = () => {
         <Field>
           <Label htmlFor="password">Password</Label>
           <InputPasswordToggle control={control}></InputPasswordToggle>
-
         </Field>
         <div className="have-account">
           You have not had an account?{" "}
