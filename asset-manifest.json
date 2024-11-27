@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/mk-blogging-app/static/css/main.9f2851ad.css",
-    "main.js": "/mk-blogging-app/static/js/main.9e7ea48b.js",
+    "main.js": "/mk-blogging-app/static/js/main.cab8bb68.js",
     "static/js/866.6fbf878b.chunk.js": "/mk-blogging-app/static/js/866.6fbf878b.chunk.js",
     "static/js/380.05eeaf55.chunk.js": "/mk-blogging-app/static/js/380.05eeaf55.chunk.js",
     "static/js/40.77528751.chunk.js": "/mk-blogging-app/static/js/40.77528751.chunk.js",
     "static/js/299.881b08cb.chunk.js": "/mk-blogging-app/static/js/299.881b08cb.chunk.js",
-    "static/js/262.01e6fef1.chunk.js": "/mk-blogging-app/static/js/262.01e6fef1.chunk.js",
+    "static/js/262.32591baa.chunk.js": "/mk-blogging-app/static/js/262.32591baa.chunk.js",
     "static/js/216.b0b75f86.chunk.js": "/mk-blogging-app/static/js/216.b0b75f86.chunk.js",
     "static/js/233.9aafcaca.chunk.js": "/mk-blogging-app/static/js/233.9aafcaca.chunk.js",
     "static/js/3.f32ded18.chunk.js": "/mk-blogging-app/static/js/3.f32ded18.chunk.js",
@@ -33,12 +33,12 @@
     "static/js/318.e0c21966.chunk.js": "/mk-blogging-app/static/js/318.e0c21966.chunk.js",
     "index.html": "/mk-blogging-app/index.html",
     "main.9f2851ad.css.map": "/mk-blogging-app/static/css/main.9f2851ad.css.map",
-    "main.9e7ea48b.js.map": "/mk-blogging-app/static/js/main.9e7ea48b.js.map",
+    "main.cab8bb68.js.map": "/mk-blogging-app/static/js/main.cab8bb68.js.map",
     "866.6fbf878b.chunk.js.map": "/mk-blogging-app/static/js/866.6fbf878b.chunk.js.map",
     "380.05eeaf55.chunk.js.map": "/mk-blogging-app/static/js/380.05eeaf55.chunk.js.map",
     "40.77528751.chunk.js.map": "/mk-blogging-app/static/js/40.77528751.chunk.js.map",
     "299.881b08cb.chunk.js.map": "/mk-blogging-app/static/js/299.881b08cb.chunk.js.map",
-    "262.01e6fef1.chunk.js.map": "/mk-blogging-app/static/js/262.01e6fef1.chunk.js.map",
+    "262.32591baa.chunk.js.map": "/mk-blogging-app/static/js/262.32591baa.chunk.js.map",
     "216.b0b75f86.chunk.js.map": "/mk-blogging-app/static/js/216.b0b75f86.chunk.js.map",
     "233.9aafcaca.chunk.js.map": "/mk-blogging-app/static/js/233.9aafcaca.chunk.js.map",
     "3.f32ded18.chunk.js.map": "/mk-blogging-app/static/js/3.f32ded18.chunk.js.map",
@@ -66,6 +66,6 @@
   },
   "entrypoints": [
     "static/css/main.9f2851ad.css",
-    "static/js/main.9e7ea48b.js"
+    "static/js/main.cab8bb68.js"
   ]
 }
