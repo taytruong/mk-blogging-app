@@ -42,7 +42,8 @@ const HomeBanner = () => {
           <div className="banner-content">
             <h1 className="banner-heading">MK Blogging App</h1>
             <p className="banner-desc">
-            Write about your blog for everyone who logs in to see it and can create posts to attract other viewers ...
+              Write about your blog for everyone who logs in to see it and can
+              create posts to attract other viewers ...
             </p>
             <Button to="/sign-up" kind="secondary">
               Get started

@@ -17,7 +17,6 @@ const AuthenticationPageStyles = styled.div`
   }
   .form {
     max-width: 600px;
-
   }
   .have-account {
     margin-bottom: 20px;
@@ -35,9 +34,9 @@ const AuthenticationPage = ({ children }) => {
       <div className="container grid grid-cols-1 lg:grid-cols-2">
         <div className="text-center mt-9 mr-12">
           <NavLink to="/" className="inline-block">
-            <img srcSet="/logo.png 1x" alt="mk-blogging" className="logo" />
+            <img srcSet="./logo.png 1x" alt="mk-blogging" className="logo" />
           </NavLink>
-        <h1 className="heading">MK Blogging</h1>
+          <h1 className="heading">MK Blogging</h1>
         </div>
         {children}
       </div>
