@@ -36,7 +36,11 @@ function App() {
       <AuthProvider>
         <Suspense>
           <Routes>
-            <Route path="/" element={<HomePage></HomePage>}></Route>
+            <Route
+              
+              path="/"
+              element={<HomePage></HomePage>}
+            ></Route>
             <Route path="/sign-up" element={<SignUpPage></SignUpPage>}></Route>
             <Route path="/sign-in" element={<SignInPage></SignInPage>}></Route>
             <Route path="*" element={<PageNotFound></PageNotFound>}></Route>

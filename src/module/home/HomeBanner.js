@@ -49,7 +49,7 @@ const HomeBanner = () => {
             </Button>
           </div>
           <div className="banner-image">
-            <img src="/img-banner.png" alt="banner" />
+            <img src="../img-banner.png" alt="banner" />
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyles></GlobalStyles>
-      <BrowserRouter>
+      <BrowserRouter basename="/mk-blogging-app">
         <App />
         <ToastContainer></ToastContainer>
       </BrowserRouter>
