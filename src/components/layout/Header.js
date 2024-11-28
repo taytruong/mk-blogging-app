@@ -8,14 +8,14 @@ const menuLinks = [
     url: "/",
     title: "Home",
   },
-  {
-    url: "/blog",
-    title: "Blog",
-  },
-  {
-    url: "/contact",
-    title: "Contact",
-  },
+  // {
+  //   url: "/blog",
+  //   title: "Blog",
+  // },
+  // {
+  //   url: "/contact",
+  //   title: "Contact",
+  // },
 ];
 
 const HeaderStyles = styled.header`
@@ -84,7 +84,11 @@ const Header = () => {
       <div className="container">
         <div className="header-main">
           <NavLink to="/">
-            <img srcSet="./logo.png 2x" alt="monkey-blogging" className="logo" />
+            <img
+              srcSet="./logo.png 2x"
+              alt="monkey-blogging"
+              className="logo"
+            />
           </NavLink>
           <ul className="menu">
             {menuLinks.map((item) => (
