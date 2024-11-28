@@ -38,13 +38,13 @@ const DashboardHeaderStyles = styled.div`
 `;
 
 const DashboardHeader = () => {
-  const {userInfo} = useAuth()
-  console.log("🚀 ~ DashboardHeader ~ userInfo:", userInfo)
-  
+  const { userInfo } = useAuth();
+  console.log("🚀 ~ DashboardHeader ~ userInfo:", userInfo);
+
   return (
     <DashboardHeaderStyles>
       <NavLink to="/" className="logo">
-        <img srcSet="/logo.png 2x" alt="monkey-blogging" className="logo" />
+        <img srcSet="./logo.png 2x" alt="monkey-blogging" className="logo" />
         <span className="hidden lg:inline-block">MK Blogging</span>
       </NavLink>
       <div className="header-right">
@@ -52,10 +52,7 @@ const DashboardHeader = () => {
           Write new post
         </Button>
         <Link to={`/profile/?id=${userInfo?.id}`} className="header-avatar">
-          <img
-            src={userInfo?.avatar}
-            alt=""
-          />
+          <img src={userInfo?.avatar} alt="" />
         </Link>
       </div>
     </DashboardHeaderStyles>
