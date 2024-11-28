@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import img404 from "../../public/404.png";
+
 const PageNotFoundStyles = styled.div`
   height: 100vh;
   display: flex;
@@ -50,7 +52,7 @@ const PageNotFound = () => {
   return (
     <PageNotFoundStyles>
       <div className="page-content">
-        <img src="./404.png" alt="notfound" className="image" />
+        <img src={img404} alt="notfound" className="image" />
         <h1 className="heading">404 - Looks like you're lost.</h1>
         <p className="description">
           Maybe this page used to exist or you just spelled something wrong.
